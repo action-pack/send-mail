@@ -1,11 +1,9 @@
-name: 'Set Repository Variable'
-
-author: kroese
-
-description: 'Action to set repository variables'
+name: "Set Repository Variable"
+author: "action-pack"
+description: "Action to set repository variables."
 
 branding:
-  icon: arrow-right
+  icon: "arrow-right"
   color: "gray-dark"
 
 inputs:
