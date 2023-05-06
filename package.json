@@ -1,6 +1,6 @@
 {
   "name": "set-variable",
-  "version": "5",
+  "version": "0.0.0-development",
   "license": "MIT License",
   "repository": "https://github.com/action-pack/set-variable",
   "scripts": {
@@ -11,13 +11,16 @@
   "dependencies": {
     "@actions/core": "^1.9.1",
     "@actions/github": "^5.1.1",
-    "@octokit/action": "^5.0.2"
+    "@octokit/core": "^4.2.0"
   },
   "devDependencies": {
     "eslint-config-strongloop": "^2.1.0",
-    "eslint-plugin-jsdoc": "^43.0.0",
+    "eslint-plugin-jsdoc": "^43.2.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.0.0"
+  },
+  "overrides": {
+    "node-fetch": "npm:node-fetch-native@latest"
   },
   "husky": {
     "hooks": {
