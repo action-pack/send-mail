@@ -5,7 +5,7 @@ const name = core.getInput("name");
 const value = core.getInput("value");
 const token = core.getInput("token");
 
-const { Octokit } = require("@octokit/action");
+const { Octokit } = require("@octokit/core");
 const octokit = new Octokit({ auth: token })
 
 const context = github.context;
@@ -101,7 +101,7 @@ const boostrap = async () => {
        const response = await setVariable(value)
        
        if(response.status === 204) {
-          return "Succesfully updated variable.."
+          return "Succesfully updated variable " + name
        }
       
       throw new Error("ERROR: Wrong status was returned: " + response.status)
@@ -113,7 +113,7 @@ const boostrap = async () => {
       const response = await createVariable(value)
       
       if(response.status === 201) {
-          return "Succesfully created variable.."
+          return "Succesfully created variable " + name
        }
       
       throw new Error("ERROR: Wrong status was returned: " + response.status)
