@@ -1,6 +1,6 @@
 name: "Set Repository Variable"
 author: "action-pack"
-description: "Action to set repository variables."
+description: "Action to set a repository variable."
 
 branding:
   icon: "arrow-right"
