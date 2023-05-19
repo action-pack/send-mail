@@ -8,7 +8,7 @@ Action to set repository variables.
 ## Usage
 
 ```YAML
-uses: action-pack/set-variable@v1
+uses: action-pack/set-variable@v1.0
 with:
   name: 'MY_VARIABLE'
   value: 'Lorem ipsun dolor simit'
