@@ -80,7 +80,7 @@ const getVariable = (varname) => {
   
 }
 
-const boostrap = async () => {
+const bootstrap = async () => {
   
   let exists = false
   
@@ -121,10 +121,11 @@ const boostrap = async () => {
 
   }catch (e) {
     core.setFailed(get_() + ": " + e.message);
+    console.error(e)
   }
 }
 
-boostrap()
+bootstrap()
   .then(
     result => {
       // eslint-disable-next-line no-console
@@ -135,6 +136,7 @@ boostrap()
     err => {
       // eslint-disable-next-line no-console
       core.setFailed(err.message);
+      console.error(err)
     }
   )
   .then(() => {
