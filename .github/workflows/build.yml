@@ -45,6 +45,12 @@ jobs:
           git config user.name kroese
           git config user.email kroese@users.noreply.github.com
           git checkout -b release/v${{ vars.MAJOR }}.${{ vars.MINOR }}
+      - 
+        uses: action-pack/set-secret@v1.01
+        with:
+          name: 'TEST_SECRET'
+          value: 'Lorem ipsun dolor simit'
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}   
       -
         name: Test and Build
         uses: actions/setup-node@v3
