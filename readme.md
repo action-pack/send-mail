@@ -1,7 +1,7 @@
 # Set Variable
 [![Build](https://github.com/action-pack/set-variable/actions/workflows/build.yml/badge.svg)](https://github.com/action-pack/set-variable/)
 [![Version](https://img.shields.io/github/v/tag/action-pack/set-variable?label=version&sort=semver&color=066da5)](https://github.com/marketplace/actions/set-repository-variable)
-[![Size](https://img.shields.io/github/size/action-pack/set-variable/dist/index.js?branch=release/v1.01&label=size&color=066da5)](https://github.com/action-pack/set-variable/)
+[![Size](https://img.shields.io/github/size/action-pack/set-variable/dist/index.js?branch=release/v1.02&label=size&color=066da5)](https://github.com/action-pack/set-variable/)
 
 Action to set a repository variable.
 
