@@ -114,7 +114,7 @@ jobs:
           commit: "release/v${{ vars.MAJOR }}.${{ vars.MINOR }}"
       -
         name: Store tag
-        uses: action-pack/set-variable@v1.01
+        uses: action-pack/set-variable@v1.02
         with:
           name: 'TAG'
           value: 'v${{ vars.MAJOR }}.${{ vars.MINOR }}'
