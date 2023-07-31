@@ -1,12 +1,11 @@
-const github = require("@actions/github");
 const core = require("@actions/core");
+const github = require("@actions/github");
+
+const token = core.getInput("token");
+const octokit = github.getOctokit(token);
 
 const name = core.getInput("name");
 const value = core.getInput("value");
-const token = core.getInput("token");
-
-const { Octokit } = require("@octokit/core");
-const octokit = new Octokit({ auth: token })
 
 const context = github.context;
 const repoName = context.payload.repository.name;
