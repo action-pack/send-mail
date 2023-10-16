@@ -74,18 +74,18 @@ const bootstrap = async () => {
   let exists = false;
 
   try {
-  
+
     const response = await getVariable(name);
     exists = response.status === 200;
-  
+
   } catch (e) {
     // Variable does not exist
   }
 
   try {
-  
+
     if (exists) {
-    
+
       const response = await setVariable(value);
 
       if (response.status === 204) {
@@ -93,9 +93,9 @@ const bootstrap = async () => {
       }
 
       throw new Error("ERROR: Wrong status was returned: " + response.status);
-      
+
     } else {
-      
+
       const response = await createVariable(value);
 
       if (response.status === 201) {
@@ -103,9 +103,9 @@ const bootstrap = async () => {
       }
 
       throw new Error("ERROR: Wrong status was returned: " + response.status);
-      
+
     }
-    
+
   } catch (e) {
     core.setFailed(get_() + ": " + e.message);
     console.error(e);
