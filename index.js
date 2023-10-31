@@ -19,7 +19,7 @@ if (owner === "false") owner = ownerName;
 
 const push_to_org = core.getInput("org") !== "false";
 
-function host_() {
+function path_() {
 
   if (push_to_org) return "/orgs/" + owner;
   if (repository.includes("/")) return "/repos/" + repository;
@@ -30,7 +30,7 @@ function host_() {
 
 const createVariable = (data) => {
 
-  let url = "POST " + host_();
+  let url = "POST " + path_();
   url += "/actions/variables";
 
   return octokit.request(url, {
@@ -43,7 +43,7 @@ const createVariable = (data) => {
 
 const setVariable = (data) => {
 
-  let url = "PATCH " + host_();
+  let url = "PATCH " + path_();
   url += "/actions/variables/" + name;
 
   return octokit.request(url, {
@@ -56,7 +56,7 @@ const setVariable = (data) => {
 
 const getVariable = (varname) => {
 
-  let url = "GET " + host_();
+  let url = "GET " + path_();
   url += "/actions/variables/" + varname;
 
   return octokit.request(url, {
@@ -104,7 +104,7 @@ const bootstrap = async () => {
     }
 
   } catch (e) {
-    core.setFailed(host_() + ": " + e.message);
+    core.setFailed(path_() + ": " + e.message);
     console.error(e);
   }
 };
