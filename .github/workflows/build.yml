@@ -104,7 +104,7 @@ jobs:
             **Full Changelog**: https://github.com/${{ github.repository }}/compare//${{ vars.TAG }}...v${{ vars.MAJOR }}.${{ vars.MINOR }}
       -
         name: Store tag
-        uses: action-pack/set-variable@v1.06
+        uses: action-pack/set-variable@v1.08
         with:
           name: 'TAG'
           value: 'v${{ vars.MAJOR }}.${{ vars.MINOR }}'
