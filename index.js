@@ -81,11 +81,11 @@ const bootstrap = async () => {
   }
 
   try {
-    
+
     if (name === "") {
       throw new Error("No name was specified!");
     }
-    
+
     if (exists) {
 
       const response = await setVariable(value);
