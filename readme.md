@@ -3,29 +3,13 @@
   
   [![Build](https://github.com/action-pack/tag-exists/actions/workflows/build.yml/badge.svg)](https://github.com/action-pack/tag-exists/)
   [![Version](https://img.shields.io/github/v/tag/action-pack/tag-exists?label=version&sort=semver&color=066da5)](https://github.com/marketplace/actions/tag-exists)
-  [![Size](https://img.shields.io/github/size/action-pack/tag-exists/dist/index.js?branch=release/v1.08&label=size&color=066da5)](https://github.com/action-pack/tag-exists/)
+  [![Size](https://img.shields.io/github/size/action-pack/tag-exists/dist/index.js?branch=release/v1.01&label=size&color=066da5)](https://github.com/action-pack/tag-exists/)
   
 </div></h1>
 
 Action to determine if a tag exists.
 
-## Inputs
-
-### `tag` 
-
-**Required** - The tag to search for.
-
-### `repo`
-
-**Optional** - Repo you'd like to search, in `owner/repo-name` format.
-
-## Outputs
-
-### `exists`
-
-A string value of 'true' or 'false'
-
-## Example usages
+## Usage
 
 To check if the tag `v1.0` exists in your repo:
 ```yaml
@@ -48,4 +32,16 @@ To check if the tag [`v1.0.0`](https://github.com/actions/checkout/releases/tag/
 - run: echo ${{ steps.checkTag.outputs.exists }}
 ```
 
-This action uses the `${{github.token}}` secret to automatically inject your access token.
+### `tag` 
+
+**Required** - The tag to search for.
+
+### `repo`
+
+**Optional** - Repo you'd like to search, in `owner/repo-name` format.
+
+## Outputs
+
+### `exists`
+
+A string value of 'true' or 'false'
