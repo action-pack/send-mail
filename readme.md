@@ -7,7 +7,7 @@
   
 </div></h1>
 
-Action to determine if a tag exists in a repo.
+Action to determine if a tag exists.
 
 ## Inputs
 
