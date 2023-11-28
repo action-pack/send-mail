@@ -3,7 +3,7 @@ const github = require("@actions/github");
 
 async function run() {
   try {
-    //Get input
+    // Get input
     const tag = process.env.TAG || process.env.INPUT_TAG || "";
     const repoInput = core.getInput("repo") || process.env.GITHUB_REPOSITORY;
 
@@ -18,7 +18,7 @@ async function run() {
     const repo = repository.join("/");
 
     const octokit = github.getOctokit(
-      process.env.GITHUB_TOKEN || core.getInput("github_token"),
+      process.env.GITHUB_TOKEN || core.getInput("github_token")
     );
     var exists = "false";
 
@@ -26,7 +26,7 @@ async function run() {
       const getRefResponse = await octokit.rest.git.getRef({
         owner,
         repo,
-        ref: `tags/${tag}`,
+        ref: `tags/${tag}`
       });
 
       if (getRefResponse.status === 200) {
