@@ -1,133 +1,45 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
+const core = require('@actions/core');
+const github = require('@actions/github');
 
-const token = core.getInput("token");
-const octokit = github.getOctokit(token);
+async function run() {
+    try {
+        //Get input
+        const tag = process.env.TAG || process.env.INPUT_TAG || '';
+        const repoInput = core.getInput('repo') || process.env.GITHUB_REPOSITORY;
 
-const name = input("name", "");
-const value = core.getInput("value");
+        console.log(`Searching for tag: ${tag} in ${repoInput}`);
 
-const push_to_org = (input("org", "") !== "");
-const owner = input("owner", github.context.payload.repository.owner.login);
-const repository = input("repository", github.context.payload.repository.name);
+        if (!repoInput.includes('/')) {
+            throw new Error(`${repoInput} is not a valid repo`);  
+        }
+            
+        // Get owner and repo from context of payload that triggered the action
+        const [ owner, ...repository ] = repoInput.split('/');
+        const repo = repository.join('/');
+        
+        const octokit = github.getOctokit(process.env.GITHUB_TOKEN || core.getInput('github_token'));
+        var exists = 'false';
 
-function path_() {
+        try {
+            const getRefResponse = await octokit.rest.git.getRef({
+                owner,
+                repo,
+                ref: `tags/${tag}`
+            });
 
-  if (push_to_org) return "/orgs/" + owner;
-  if (repository.includes("/")) return "/repos/" + repository;
+            if (getRefResponse.status === 200) {
+                console.log("Tag was found");
+                exists = 'true';
+            }
 
-  return "/repos/" + owner + "/" + repository;
+        } catch(error) {
+            console.log("Tag was not found");
+        }
 
+        core.setOutput('exists', exists);
+    } catch (error) {
+        core.setFailed(error.message);
+    }
 }
 
-function input(name, def) {
-
-  let inp = core.getInput(name).trim();
-  if (inp === "" || inp.toLowerCase() === "false") return def;
-
-  return inp;
-
-}
-
-const createVariable = (data) => {
-
-  let url = "POST " + path_();
-  url += "/actions/variables";
-
-  return octokit.request(url, {
-    owner: owner,
-    repo: repository,
-    name: name,
-    value: data,
-  });
-};
-
-const setVariable = (data) => {
-
-  let url = "PATCH " + path_();
-  url += "/actions/variables/" + name;
-
-  return octokit.request(url, {
-    owner: owner,
-    repo: repository,
-    name: name,
-    value: data,
-  });
-};
-
-const getVariable = (varname) => {
-
-  let url = "GET " + path_();
-  url += "/actions/variables/" + varname;
-
-  return octokit.request(url, {
-    owner: owner,
-    repo: repository,
-    name: varname,
-  });
-};
-
-const bootstrap = async () => {
-
-  let exists = false;
-
-  try {
-
-    const response = await getVariable(name);
-    exists = response.status === 200;
-
-  } catch (e) {
-    // Variable does not exist
-  }
-
-  try {
-
-    if (name === "") {
-      throw new Error("No name was specified!");
-    }
-
-    if (exists) {
-
-      const response = await setVariable(value);
-
-      if (response.status === 204) {
-        return "Succesfully updated variable " + name + " to '" + value + "'.";
-      }
-
-      throw new Error("ERROR: Wrong status was returned: " + response.status);
-
-    } else {
-
-      const response = await createVariable(value);
-
-      if (response.status === 201) {
-        return "Succesfully created variable " + name + " with value '" + value + "'.";
-      }
-
-      throw new Error("ERROR: Wrong status was returned: " + response.status);
-
-    }
-
-  } catch (e) {
-    core.setFailed(path_() + ": " + e.message);
-    console.error(e);
-  }
-};
-
-bootstrap()
-  .then(
-    (result) => {
-      // eslint-disable-next-line no-console
-      if (result != null) {
-        console.log(result);
-      }
-    },
-    (err) => {
-      // eslint-disable-next-line no-console
-      core.setFailed(err.message);
-      console.error(err);
-    },
-  )
-  .then(() => {
-    process.exit();
-  });
+run();
