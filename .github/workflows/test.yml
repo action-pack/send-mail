@@ -10,8 +10,9 @@ jobs:
     steps:
       -
         name: Test action
-        uses: action-pack/set-variable@v1
-        with:
-          name: 'TEST'
-          value: 'TEST'
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        uses: action-pack/tag-exists@v1
+        id: checkTag
+        with: 
+          tag: 'v1.01'
+
+      - run: echo ${{ steps.checkTag.outputs.exists }}
