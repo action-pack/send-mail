@@ -1,38 +1,27 @@
-name: "Set Repository Variable"
+name: "Tag exists"
 author: "action-pack"
-description: "Action to set a repository variable."
+description: "Action to determine if a tag exists."
 
 branding:
-  icon: "arrow-right"
+  icon: "tag"
   color: "gray-dark"
-
+  
 inputs:
-  name:
-    description: Name
+  tag:  
+    description: 'Tag to search for'
     required: true
-
-  value:
-    description: Value
-    required: true
-
-  repository:
-    description: Repository name
-    default: false
-    required: false
-
-  owner:
-    description: Repository owner
-    default: false
-    required: false
-
-  org:
-    description: Flag for organization
-    default: false
-    required: false
-
-  token:
-    description: Repository access token
-    required: true
+    
+  repo:  
+    description: 'Repo to search for given tag'
+    default: ${{ github.repository }}
+    
+  github_token:
+    description: GitHub token
+    default: ${{ github.token }}
+    
+outputs:
+  exists: # id of output
+    description: 'true or false'
 
 runs:
   using: node20
