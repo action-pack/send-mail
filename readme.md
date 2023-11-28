@@ -11,25 +11,14 @@ Action to determine if a tag exists.
 
 ## Usage
 
-To check if the tag `v1.0` exists in your repo:
+To check if the tag `example` exists in your repo:
 ```yaml
 - uses: action-pack/tag-exists@v1
-  id: checkTag
+  id: checktag
   with: 
-    tag: 'v1.0'
+    tag: 'example'
 
-- run: echo ${{ steps.checkTag.outputs.exists }}
-```
-
-To check if the tag [`v1.0.0`](https://github.com/actions/checkout/releases/tag/v1.0.0) exists in the repo `actions/checkout`:
-```yaml
-- uses: action-pack/tag-exists@v1
-  id: checkTag
-  with: 
-    tag: 'v1.0.0'
-    repo: 'actions/checkout'
-
-- run: echo ${{ steps.checkTag.outputs.exists }}
+- run: echo ${{ steps.checktag.outputs.exists }}
 ```
 
 ### `tag` 
