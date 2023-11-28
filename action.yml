@@ -1,4 +1,4 @@
-name: "Tag exists"
+name: "Tag Exists"
 author: "action-pack"
 description: "Action to determine if a tag exists."
 
