@@ -22,6 +22,8 @@ To check if a tag named `example` exists in your repo:
 - run: echo ${{ steps.check.outputs.exists }}
 ```
 
+## Inputs
+
 ### `tag` 
 
 **Required** - The tag to search for.
