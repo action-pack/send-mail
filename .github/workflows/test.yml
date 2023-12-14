@@ -13,6 +13,6 @@ jobs:
         uses: action-pack/tag-exists@v1
         id: checkTag
         with: 
-          tag: 'v1.04'
+          tag: 'v1.05'
 
       - run: echo ${{ steps.checkTag.outputs.exists }}
