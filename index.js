@@ -23,22 +23,25 @@ async function run() {
     var exists = "false";
 
     try {
-      const getRefResponse = await octokit.rest.git.getRef({
+      const response = await octokit.rest.git.getRef({
         owner,
         repo,
         ref: `tags/${tag}`
       });
 
-      if (getRefResponse.status === 200) {
+      if (response.status === 200) {
         console.log("Tag was found");
         exists = "true";
       } else {
-        core.setFailed("Unknown status was returned: " + getRefResponse.status);
-        process.exit();
+        core.setFailed("Unknown status was returned: " + response.status);
       }
     } catch (error) {
-      console.error(error);
-      console.log("Tag was not found: " + error.code);
+       if (error.status === 404) {
+        console.log("Tag was not found");
+      } else {
+        core.setFailed("Unknown status was returned: " + error.status);
+        console.error(error);
+      }
     }
 
     core.setOutput("exists", exists);
