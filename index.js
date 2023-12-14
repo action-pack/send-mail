@@ -33,13 +33,21 @@ async function run() {
         console.log("Tag was found");
         exists = "true";
       }
+      else
+      {
+        core.setFailed("Unknown status was returned: " + getRefResponse.status);
+        process.exit();
+      }
     } catch (error) {
+      console.error(error);
       console.log("Tag was not found");
     }
 
     core.setOutput("exists", exists);
+
   } catch (error) {
     core.setFailed(error.message);
+    console.error(error);
   }
 }
 
