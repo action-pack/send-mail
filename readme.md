@@ -30,7 +30,7 @@ To check if a tag named `example` exists in your repo:
 
 ### `repo`
 
-**Optional** - Repo you'd like to search, in `owner/repo-name` format.
+**Optional** - Repo name in`owner/repo` format.
 
 ## Outputs
 
