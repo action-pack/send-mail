@@ -11,7 +11,7 @@ Action to determine if a tag exists.
 
 ## Usage
 
-To check if a tag named `example` exists in your repo:
+To check if a tag named `example` exists in your current repository:
 
 ```yaml
 - uses: action-pack/tag-exists@v1
@@ -30,7 +30,7 @@ To check if a tag named `example` exists in your repo:
 
 ### `repo`
 
-**Optional** - Repo name in`owner/repo` format.
+**Optional** - External repository name in`owner/repo` format.
 
 ## Outputs
 
