@@ -36,11 +36,11 @@ async function run() {
         core.setFailed("Unknown status was returned: " + response.status);
       }
     } catch (error) {
-       if (error.status === 404) {
-        console.log("Tag was not found");
-      } else {
-        core.setFailed("Unknown status was returned: " + error.status);
-        console.error(error);
+        if (error.status === 404) {
+          console.log("Tag was not found");
+       } else {
+          core.setFailed("Unknown status was returned: " + error.status);
+          console.error(error);
       }
     }
 
