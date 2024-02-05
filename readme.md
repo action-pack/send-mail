@@ -37,3 +37,6 @@ To check if a tag named `example` exists in your current repository:
 ### `exists`
 
 A string value of 'true' or 'false'
+
+## Stars
+[![Stars](https://starchart.cc/action-pack/tag-exists.svg?variant=adaptive)](https://starchart.cc/action-pack/tag-exists)
