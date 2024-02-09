@@ -12,7 +12,7 @@ Action to send an email.
 ## Usage
 
 ```yaml
-- name: Send mail
+- name: Send a mail
   uses: action-pack/send-mail@v1
   with:
     # Required connection URL:
