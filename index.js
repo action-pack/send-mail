@@ -127,7 +127,7 @@ async function main() {
         core.setFailed(error.message)
     }
 
-    var i = 1
+    var i = 1;
     while (i < 20) {
         try {
             const info = await transport.sendMail({
