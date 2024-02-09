@@ -15,9 +15,11 @@ Action to send an email.
 - name: Send mail
   uses: action-pack/send-mail@v1
   with:
+    # Required connection URL:
+    connection_url: ${{secrets.MAIL_CONNECTION}}
+    # Examples:
     #  * smtp://user:password@server:port
     #  * smtp+starttls://user:password@server:port
-    connection_url: ${{secrets.MAIL_CONNECTION}}
     # Required mail subject:
     subject: Github Actions job result
     # Required recipients' addresses:
@@ -59,11 +61,6 @@ Instead of using your normal Google password, use an App password.
 1. [Enable 2-Step Verification.](https://support.google.com/accounts/answer/185839?hl=en&co=GENIE.Platform%3DAndroid).
 This is needed to create an App password.
 2. [Create an App password](https://support.google.com/accounts/answer/185833?hl=en) for `Mail`.
-
-### Unauthenticated login (username/password fields)
-
-The parameters `username` and `password` are set as optional to support self-hosted runners access to on-premise infrastructure. If
-you are accessing public email servers make sure you provide a username/password authentication through [GitHub Secrets](https://docs.github.com/en/actions/reference/encrypted-secrets) to make the email delivery secure.
 
 ## Stars
 [![Stars](https://starchart.cc/action-pack/send-mail.svg?variant=adaptive)](https://starchart.cc/action-pack/send-mail)
