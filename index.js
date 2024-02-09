@@ -49,15 +49,11 @@ function sleep(ms) {
 
 async function main() {
   try {
-    let serverAddress = core.getInput("server_address")
-    let serverPort = core.getInput("server_port")
-    let secure = core.getInput("secure")
-    let username = core.getInput("username")
-    let password = core.getInput("password")
-
-    if (!secure) {
-      secure = serverPort === "465" ? "true" : "false"
-    }
+    let secure = "true"
+    let username = ""
+    let password = ""
+    let serverPort = "465"
+    let serverAddress = ""
 
     const connectionUrl = core.getInput("connection_url")
     if (connectionUrl) {
