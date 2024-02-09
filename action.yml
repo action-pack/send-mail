@@ -8,18 +8,8 @@ branding:
 
 inputs:
   connection_url:
-    description: Connection URL protocol://user:password@server:port, protocol can be smtp or smtp+starttls, replaces server_address, server_port, secure, username and password
-  server_address:
-    description: SMTP server address
-  server_port:
-    description: SMTP server port
-    default: "25"
-  secure:
-    description: Whether this connection use TLS (default is true if server_port is 465)
-  username:
-    description: Authenticate as this user to SMTP server
-  password:
-    description: Authenticate with this password to SMTP server
+    description: Connection URL protocol://user:password@server:port, protocol can be smtp or smtp+starttls
+    required: true
   subject:
     description: Subject of mail message
     required: true
