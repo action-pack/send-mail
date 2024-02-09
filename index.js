@@ -1,9 +1,9 @@
-const nodemailer = require("nodemailer");
+const fs = require("fs");
+const path = require("path");
 const core = require("@actions/core");
 const glob = require("@actions/glob");
-const fs = require("fs");
 const showdown = require("showdown");
-const path = require("path");
+const nodemailer = require("nodemailer");
 
 function getText(textOrFile, convertMarkdown) {
   let text = textOrFile;
@@ -157,37 +157,45 @@ async function main() {
       logger: nodemailerdebug == "true" ? true : nodemailerlog,
       debug: nodemailerdebug,
     })
-  } catch (error) {
-    core.setFailed(error.message);
-  }
 
-  var i = 1;
-  while (i < 20) {
-    try {
-      const info = await transport.sendMail({
-        from: getFrom(from, username),
-        to: to,
-        subject: getText(subject, false),
-        cc: cc ? cc : undefined,
-        bcc: bcc ? bcc : undefined,
-        replyTo: replyTo ? replyTo : undefined,
-        inReplyTo: inReplyTo ? inReplyTo : undefined,
-        references: inReplyTo ? inReplyTo : undefined,
-        text: body ? getText(body, false) : undefined,
-        html: htmlBody ? getText(htmlBody, convertMarkdown) : undefined,
-        priority: priority ? priority : undefined,
-        attachments: attachments ? (await getAttachments(attachments)) : undefined,
-      });
-      break;
-    } catch (error) {
-      if (!error.message.includes("Try again later,")) {
-        core.setFailed(error.message)
+    var i = 1;
+    while (true) {
+      try {
+        const info = await transport.sendMail({
+          from: getFrom(from, username),
+          to: to,
+          subject: getText(subject, false),
+          cc: cc ? cc : undefined,
+          bcc: bcc ? bcc : undefined,
+          replyTo: replyTo ? replyTo : undefined,
+          inReplyTo: inReplyTo ? inReplyTo : undefined,
+          references: inReplyTo ? inReplyTo : undefined,
+          text: body ? getText(body, false) : undefined,
+          html: htmlBody ? getText(htmlBody, convertMarkdown) : undefined,
+          priority: priority ? priority : undefined,
+          attachments: attachments ? (await getAttachments(attachments)) : undefined,
+        });
         break;
+      } catch (error) {
+        if (!error.message.includes("Try again later,")) {
+          core.setFailed(error.message)
+          break;
+        }
+        if (i > 10) {
+          core.setFailed(error.message)
+          break;
+        }
+        console.log("Received: " + error.message);
+        if (i < 2) {
+          console.log("Trying again in a minute...");
+        } else { 
+          console.log("Trying again in " + i + " minutes...");
+        }
+        await sleep(i * 60000);
+        i++;
       }
-      console.log("Received: " + error.message);
-      console.log("Trying again in " + i + " minutes...");
-      await sleep(i * 60000);
-      i++;
+    } catch (error) {
+      core.setFailed(error.message);
     }
   }
 }
