@@ -194,9 +194,9 @@ async function main() {
         await sleep(i * 60000);
         i++;
       }
-    } catch (error) {
-      core.setFailed(error.message);
     }
+  } catch (error) {
+    core.setFailed(error.message);
   }
 }
 
