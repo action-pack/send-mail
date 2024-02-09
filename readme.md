@@ -3,7 +3,7 @@
   
   [![Build](https://github.com/action-pack/send-mail/actions/workflows/build.yml/badge.svg)](https://github.com/action-pack/send-mail/)
   [![Version](https://img.shields.io/github/v/tag/action-pack/send-mail?label=version&sort=semver&color=066da5)](https://github.com/marketplace/actions/send-mail)
-  [![Size](https://img.shields.io/github/size/action-pack/send-mail/dist/index.js?branch=release/v1.01&label=size&color=066da5)](https://github.com/action-pack/send-mail/)
+  [![Size](https://img.shields.io/github/size/action-pack/send-mail/dist/index.js?branch=release/v1.04&label=size&color=066da5)](https://github.com/action-pack/send-mail/)
   
 </div></h1>
 
