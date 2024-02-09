@@ -1,4 +1,4 @@
-<h1 align="center">Send Mail<br />
+<h1 align="center">Send a mail<br />
 <div align="center">
   
   [![Build](https://github.com/action-pack/send-mail/actions/workflows/build.yml/badge.svg)](https://github.com/action-pack/send-mail/)
