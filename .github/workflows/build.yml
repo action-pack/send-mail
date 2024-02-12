@@ -123,7 +123,7 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
       -
         name: Send mail
-        uses: action-pack/send-mail@v1.04
+        uses: action-pack/send-mail@v1.05
         with:
           to: ${{secrets.MAILTO}}
           from: Github Actions <${{secrets.MAILTO}}>
