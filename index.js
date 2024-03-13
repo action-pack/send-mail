@@ -177,7 +177,7 @@ async function main() {
           core.setFailed(error.message)
           break;
         }
-        if (i > 10) {
+        if (i > 20) {
           core.setFailed(error.message)
           break;
         }
