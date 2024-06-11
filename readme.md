@@ -9,7 +9,7 @@
 
 Action to send an email.
 
-## Usage
+## Usage 🚀
 
 ```yaml
 - name: Send a mail
@@ -52,7 +52,7 @@ Action to send an email.
     nodemailerdebug: false
 ```
 
-## Troubleshooting
+## Troubleshooting ℹ️
 
 ### Gmail
 
@@ -62,5 +62,5 @@ Instead of using your normal Google password, use an App password.
 This is needed to create an App password.
 2. [Create an App password](https://support.google.com/accounts/answer/185833?hl=en) for `Mail`.
 
-## Stars
+## Stars 🌟
 [![Stars](https://starchart.cc/action-pack/send-mail.svg?variant=adaptive)](https://starchart.cc/action-pack/send-mail)
