@@ -22,7 +22,7 @@
     "eslint-config-strongloop": "^2.1.0"
   },
   "overrides": {
-    "@actions/http-client": "2.1.1"
+    "@actions/http-client": "2.2.3"
   },
   "husky": {
     "hooks": {
