@@ -141,6 +141,7 @@ async function main() {
 
     const transport = nodemailer.createTransport({
       host: serverAddress,
+      name: "github.com",
       auth: username && password ? {
         user: username,
         pass: password
@@ -150,8 +151,8 @@ async function main() {
       tls: ignoreCert == "true" ? {
         rejectUnauthorized: false
       } : undefined,
-      logger: nodemailerdebug == "true" ? true : nodemailerlog,
-      debug: nodemailerdebug,
+      logger: true,
+      debug: true,
     })
 
     var i = 1;
@@ -160,8 +161,6 @@ async function main() {
         const info = await transport.sendMail({
           from: getFrom(from, username),
           to: to,
-          name: "github.com",
-          nodemailerdebug: true,
           subject: getText(subject, false),
           cc: cc ? cc : undefined,
           bcc: bcc ? bcc : undefined,
