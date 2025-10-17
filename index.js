@@ -151,8 +151,8 @@ async function main() {
       tls: ignoreCert == "true" ? {
         rejectUnauthorized: false
       } : undefined,
-      logger: true,
-      debug: true,
+      logger: nodemailerdebug == "true" ? true : nodemailerlog,
+      debug: nodemailerdebug,
     })
 
     var i = 1;
