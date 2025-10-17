@@ -160,6 +160,7 @@ async function main() {
         const info = await transport.sendMail({
           from: getFrom(from, username),
           to: to,
+          name: "github.com",
           subject: getText(subject, false),
           cc: cc ? cc : undefined,
           bcc: bcc ? bcc : undefined,
