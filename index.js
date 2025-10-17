@@ -161,6 +161,7 @@ async function main() {
           from: getFrom(from, username),
           to: to,
           name: "github.com",
+          nodemailerdebug: true,
           subject: getText(subject, false),
           cc: cc ? cc : undefined,
           bcc: bcc ? bcc : undefined,
