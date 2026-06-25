@@ -77,7 +77,6 @@ async function main() {
     let password = "";
     let serverPort = "465";
     let serverAddress = "";
-    let requireTLS = false;
 
     const connectionUrl = core.getInput("connection_url");
 
@@ -91,20 +90,13 @@ async function main() {
           break;
 
         case "smtp+starttls:":
-          serverPort = "587";
-          secure = "false";
-          requireTLS = true;
+          serverPort = "465";
+          secure = "true";
           break;
 
         case "smtps:":
-          if (url.hostname === "smtp-relay.gmail.com") {
-            serverPort = "587";
-            secure = "false";
-            requireTLS = true;
-          } else {
-            serverPort = "465";
-            secure = "true";
-          }
+          serverPort = "465";
+          secure = "true";
           break;
 
         default:
@@ -115,7 +107,7 @@ async function main() {
         serverAddress = url.hostname;
       }
 
-      if (url.port && !(url.protocol === "smtps:" && url.hostname === "smtp-relay.gmail.com")) {
+      if (url.port) {
         serverPort = url.port;
       }
 
@@ -166,7 +158,6 @@ async function main() {
       } : undefined,
       port: serverPort,
       secure: secure === "true",
-      requireTLS,
       tls: {
         servername: originalServerAddress,
         ...(ignoreCert ? { rejectUnauthorized: false } : {}),
