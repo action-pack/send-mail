@@ -13,11 +13,13 @@ function getBooleanInput(name) {
 function getText(textOrFile, convertMarkdown) {
   let text = textOrFile || "";
 
+  // Read text from file
   if (text.startsWith("file://")) {
     const file = text.replace("file://", "");
     text = fs.readFileSync(file, "utf8");
   }
 
+  // Convert Markdown to HTML
   if (convertMarkdown) {
     const converter = new showdown.Converter();
     text = converter.makeHtml(text);
@@ -53,18 +55,18 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Force SMTP hostname resolution to IPv4.
 function ipv4Lookup(hostname, options, callback) {
   return dns.lookup(hostname, { ...options, family: 4 }, callback);
 }
 
 async function main() {
   try {
+    let secure = "true";
     let username = "";
     let password = "";
-    let serverPort = 465;
+    let serverPort = "465";
     let serverAddress = "";
-    let secure = true;
-    let requireTLS = false;
 
     const connectionUrl = core.getInput("connection_url");
 
@@ -73,19 +75,18 @@ async function main() {
 
       switch (url.protocol) {
         case "smtp:":
-          serverPort = 25;
-          secure = false;
+          serverPort = "25";
+          secure = "false";
           break;
 
         case "smtp+starttls:":
-          serverPort = 587;
-          secure = false;
-          requireTLS = true;
+          serverPort = "465";
+          secure = "true";
           break;
 
         case "smtps:":
-          serverPort = 465;
-          secure = true;
+          serverPort = "465";
+          secure = "true";
           break;
 
         default:
@@ -97,7 +98,7 @@ async function main() {
       }
 
       if (url.port) {
-        serverPort = Number(url.port);
+        serverPort = url.port;
       }
 
       if (url.username) {
@@ -119,14 +120,14 @@ async function main() {
     const replyTo = core.getInput("reply_to", { required: false });
     const inReplyTo = core.getInput("in_reply_to", { required: false });
     const attachments = core.getInput("attachments", { required: false });
+    const priority = core.getInput("priority", { required: false });
 
     const convertMarkdown = getBooleanInput("convert_markdown");
     const ignoreCert = getBooleanInput("ignore_cert");
     const nodemailerlog = getBooleanInput("nodemailerlog");
     const nodemailerdebug = getBooleanInput("nodemailerdebug");
 
-    const priority = core.getInput("priority", { required: false });
-
+    // If neither to, cc or bcc is provided, throw error.
     if (!to && !cc && !bcc) {
       throw new Error("At least one of 'to', 'cc' or 'bcc' must be specified");
     }
@@ -144,8 +145,7 @@ async function main() {
         pass: password,
       } : undefined,
       port: serverPort,
-      secure,
-      requireTLS,
+      secure: secure === "true",
       tls: ignoreCert ? {
         rejectUnauthorized: false,
       } : undefined,
