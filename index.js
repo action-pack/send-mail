@@ -136,19 +136,22 @@ async function main() {
       throw new Error("Server address must be specified");
     }
 
+    const originalServerAddress = serverAddress;
+    serverAddress = await resolveIPv4(serverAddress);
+
     const transport = nodemailer.createTransport({
       host: serverAddress,
       name: "github.com",
-      lookup: ipv4Lookup,
       auth: username && password ? {
         user: username,
         pass: password,
       } : undefined,
       port: serverPort,
       secure: secure === "true",
-      tls: ignoreCert ? {
-        rejectUnauthorized: false,
-      } : undefined,
+      tls: {
+        servername: originalServerAddress,
+        ...(ignoreCert ? { rejectUnauthorized: false } : {}),
+      },
       logger: nodemailerdebug || nodemailerlog,
       debug: nodemailerdebug,
     });
