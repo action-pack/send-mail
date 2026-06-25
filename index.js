@@ -115,7 +115,7 @@ async function main() {
         serverAddress = url.hostname;
       }
 
-      if (url.port) {
+      if (url.port && !(url.protocol === "smtps:" && url.hostname === "smtp-relay.gmail.com")) {
         serverPort = url.port;
       }
 
