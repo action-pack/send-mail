@@ -62,5 +62,6 @@ Instead of using your normal Google password, use an App password.
 This is needed to create an App password.
 2. [Create an App password](https://support.google.com/accounts/answer/185833?hl=en) for `Mail`.
 
+
 ## Stars 🌟
-[![Stars](https://starchart.cc/action-pack/send-mail.svg?variant=adaptive)](https://starchart.cc/action-pack/send-mail)
+![Stargazers](https://raw.githubusercontent.com/star-stats/stars/refs/heads/data/charts/action-pack-send-mail.svg)
