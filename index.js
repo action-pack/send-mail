@@ -73,6 +73,7 @@ async function main() {
     let password = "";
     let serverPort = "465";
     let serverAddress = "";
+    let requireTLS = false;
 
     const connectionUrl = core.getInput("connection_url");
 
@@ -86,8 +87,9 @@ async function main() {
           break;
 
         case "smtp+starttls:":
-          serverPort = "465";
-          secure = "true";
+          serverPort = "587";
+          secure = "false";
+          requireTLS = true;
           break;
 
         case "smtps:":
@@ -154,6 +156,7 @@ async function main() {
       } : undefined,
       port: serverPort,
       secure: secure === "true",
+      requireTLS,
       tls: {
         servername: originalServerAddress,
         ...(ignoreCert ? { rejectUnauthorized: false } : {}),
