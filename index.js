@@ -55,9 +55,15 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// Force SMTP hostname resolution to IPv4.
-function ipv4Lookup(hostname, options, callback) {
-  return dns.lookup(hostname, { ...options, family: 4 }, callback);
+// Resolve the SMTP hostname to IPv4 before passing it to Nodemailer.
+async function resolveIPv4(hostname) {
+  const addresses = await dns.promises.resolve4(hostname);
+
+  if (!addresses.length) {
+    throw new Error(`No IPv4 address found for SMTP host '${hostname}'`);
+  }
+
+  return addresses[0];
 }
 
 async function main() {
