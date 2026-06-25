@@ -97,8 +97,14 @@ async function main() {
           break;
 
         case "smtps:":
-          serverPort = "465";
-          secure = "true";
+          if (url.hostname === "smtp-relay.gmail.com") {
+            serverPort = "587";
+            secure = "false";
+            requireTLS = true;
+          } else {
+            serverPort = "465";
+            secure = "true";
+          }
           break;
 
         default:
