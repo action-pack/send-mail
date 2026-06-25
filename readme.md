@@ -64,4 +64,4 @@ This is needed to create an App password.
 
 
 ## Stars 🌟
-![Stargazers](https://raw.githubusercontent.com/star-stats/stars/refs/heads/data/charts/action-pack-send-mail.svg)
+[![Stargazers](https://raw.githubusercontent.com/star-stats/stars/refs/heads/data/charts/action-pack-send-mail.svg)](https://github.com/action-pack/send-mail/stargazers)
