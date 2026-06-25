@@ -57,6 +57,10 @@ function sleep(ms) {
 
 // Resolve the SMTP hostname to IPv4 before passing it to Nodemailer.
 async function resolveIPv4(hostname) {
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(hostname)) {
+    return hostname;
+  }
+
   const addresses = await dns.promises.resolve4(hostname);
 
   if (!addresses.length) {
