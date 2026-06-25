@@ -15,8 +15,6 @@ jobs:
           to: ${{secrets.MAILTO}}
           from: Github Actions <${{secrets.MAILTO}}>
           connection_url: ${{secrets.MAIL_CONNECTION}}
-          nodemailerlog: true
-          nodemailerdebug: true
           subject: Test of ${{ github.event.repository.name }} v${{ vars.MAJOR }}.${{ vars.MINOR }} completed
           body: |
               The test of ${{ github.event.repository.name }} v${{ vars.MAJOR }}.${{ vars.MINOR }} was completed successfully! 
