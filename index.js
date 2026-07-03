@@ -15,7 +15,7 @@ function getText(textOrFile, convertMarkdown) {
 
   // Read text from file
   if (text.startsWith("file://")) {
-    const file = text.replace("file://", "");
+    const file = text.slice("file://".length);
     text = fs.readFileSync(file, "utf8");
   }
 
@@ -33,6 +33,14 @@ function getFrom(from, username) {
     return from;
   }
 
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from)) {
+    return from;
+  }
+
+  if (!username) {
+    throw new Error("Username must be specified when 'from' does not contain an email address.");
+  }
+
   return `"${from}" <${username}>`;
 }
 
@@ -41,8 +49,22 @@ async function getAttachments(attachments) {
     return undefined;
   }
 
-  const globber = await glob.create(attachments.split(",").join("\n"));
+  const patterns = attachments
+    .split(",")
+    .map((attachment) => attachment.trim())
+    .filter(Boolean)
+    .join("\n");
+
+  if (!patterns) {
+    return undefined;
+  }
+
+  const globber = await glob.create(patterns);
   const files = await globber.glob();
+
+  if (!files.length) {
+    throw new Error("No files matched the attachment pattern.");
+  }
 
   return files.map((file) => ({
     filename: path.basename(file),
@@ -53,6 +75,14 @@ async function getAttachments(attachments) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function isTemporaryError(error) {
+  if (error.responseCode >= 400 && error.responseCode < 500) {
+    return true;
+  }
+
+  return error.message.includes("Try again later,");
 }
 
 // Resolve the SMTP hostname to IPv4 before passing it to Nodemailer.
@@ -146,6 +176,12 @@ async function main() {
       throw new Error("Server address must be specified");
     }
 
+    serverPort = Number.parseInt(serverPort, 10);
+
+    if (!Number.isInteger(serverPort)) {
+      throw new Error("Server port must be a valid number");
+    }
+
     const originalServerAddress = serverAddress;
     serverAddress = await resolveIPv4(serverAddress);
 
@@ -185,7 +221,7 @@ async function main() {
 
         break;
       } catch (error) {
-        if (!error.message.includes("Try again later,") || i > 20) {
+        if (!isTemporaryError(error) || i > 20) {
           core.setFailed(error.message);
           break;
         }
